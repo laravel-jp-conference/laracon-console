@@ -17,7 +17,7 @@ class UserAccountCollection
      */
     public function __construct()
     {
-        $this->accounts = new \ArrayIterator();
+        $this->accounts = [];
     }
 
     /**
@@ -89,6 +89,16 @@ class UserAccountCollection
     public function count(): int
     {
         return count($this->accounts);
+    }
+
+    /**
+     * @return \Generator
+     */
+    public function generator(): \Generator
+    {
+        foreach ($this->accounts as $account) {
+            yield $account;
+        }
     }
 
     /**

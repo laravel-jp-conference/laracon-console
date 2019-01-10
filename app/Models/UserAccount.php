@@ -9,21 +9,29 @@ namespace App\Models;
  */
 class UserAccount
 {
-    /** @var string */
+    /** @var ?string */
     private $name;
+
+    /** @var string */
+    private $twitterAccount;
 
     /**
      * UserAccount constructor.
-     * @param string $name
+     * @param null|string $name
+     * @param null|string $twitterAccount
      */
-    public function __construct(string $name)
+    public function __construct(?string $name, ?string $twitterAccount)
     {
-        // 先頭・末尾のスペース削除
-        $name = rtrim(ltrim($name));
-        // アットマーク削除
-        $name = str_replace("@", "", $name);
-        $name = str_replace("＠", "", $name);
         $this->name = $name;
+
+        if (!is_null($twitterAccount)) {
+            // 先頭・末尾のスペース削除
+            $twitterAccount = rtrim(ltrim($twitterAccount));
+            // アットマーク削除
+            $twitterAccount = str_replace("@", "", $twitterAccount);
+            $twitterAccount = str_replace("＠", "", $twitterAccount);
+            $this->twitterAccount = $twitterAccount;
+        }
     }
 
     /**
@@ -31,7 +39,18 @@ class UserAccount
      */
     public function name(): string
     {
-        return $this->name;
+        if ($this->hasTwitter()) {
+            return $this->twitterAccount;
+        }
+        return $this->name ?? "";
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasTwitter(): bool
+    {
+        return !is_null($this->twitterAccount);
     }
 
     /**
@@ -39,6 +58,6 @@ class UserAccount
      */
     public function twitterUrl(): string
     {
-        return "https://twitter.com/{$this->name}";
+        return "https://twitter.com/{$this->twitterAccount}";
     }
 }

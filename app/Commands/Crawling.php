@@ -23,9 +23,8 @@ class Crawling extends Command
     protected $description = 'Crawling start';
 
     /**
-     * Execute the console command.
-     *
-     * @return mixed
+     * @param SaveAccountImageService $service
+     * @return int
      */
     public function handle(SaveAccountImageService $service)
     {
