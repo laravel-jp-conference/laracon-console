@@ -8,10 +8,10 @@ use App\Models\UserAccountCollection;
 use SplFileObject;
 
 /**
- * Class ImportTsvToUserAccounts
+ * Class ImportUserAccountsToTsv
  * @package App\Usecases
  */
-class ImportTsvToUserAccounts
+class ImportUserAccountsToTsv
 {
     /**
      * @param string $fileName

@@ -100,12 +100,4 @@ class UserAccountCollection
             yield $account;
         }
     }
-
-    /**
-     * @return array
-     */
-    public function __toArray(): array
-    {
-        return $this->accounts;
-    }
 }

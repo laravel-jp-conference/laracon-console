@@ -60,4 +60,12 @@ class UserAccount
     {
         return "https://twitter.com/{$this->twitterAccount}";
     }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->name();
+    }
 }
