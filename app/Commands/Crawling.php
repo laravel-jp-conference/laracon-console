@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use App\Models\Message;
 use App\Services\SaveAccountImageService;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
@@ -38,7 +39,11 @@ class Crawling extends Command
 
             $this->info("ファイル名 : $fileName");
             if ($this->confirm('この内容で実行してよろしいですか?')) {
-                $service->execute($fileName);
+                $messages = $service->execute($fileName);
+                /** @var Message $message */
+                foreach ($messages->generator() as $message) {
+                    $this->{$message->type()}($message->message());
+                }
             } else {
                 $this->info('command: cancel');
             }

@@ -25,7 +25,7 @@ class ExportUserAccountToCsv
         }
         touch($fileName);
         $this->file = fopen($fileName, "w");
-        fputcsv($this->file, ["name"]);
+        fputcsv($this->file, ["order_id", "name"]);
     }
 
     /**
@@ -34,7 +34,7 @@ class ExportUserAccountToCsv
     public function run(UserAccount $account): void
     {
         if ($this->file) {
-            fputcsv($this->file, [$account->name()]);
+            fputcsv($this->file, [$account->order(), $account->name()]);
         }
     }
 }

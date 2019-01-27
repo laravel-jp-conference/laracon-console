@@ -37,6 +37,9 @@ class SaveDefaultImage
         if (!$this->filesystemManager->exists("/storage/default.jpg")) {
             throw new \ErrorException("Not found default.jpg");
         }
+        if (file_exists(base_path("/storage/images/{$account->name()}.jpg"))) {
+            return false;
+        }
         return $this->filesystemManager->copy(
             "/storage/default.jpg",
             "/storage/images/{$account->name()}.jpg"

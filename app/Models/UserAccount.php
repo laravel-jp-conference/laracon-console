@@ -9,6 +9,9 @@ namespace App\Models;
  */
 class UserAccount
 {
+    /** @var int */
+    private $order;
+
     /** @var ?string */
     private $name;
 
@@ -17,11 +20,13 @@ class UserAccount
 
     /**
      * UserAccount constructor.
+     * @param int $order
      * @param null|string $name
      * @param null|string $twitterAccount
      */
-    public function __construct(?string $name, ?string $twitterAccount)
+    public function __construct(int $order, ?string $name, ?string $twitterAccount)
     {
+        $this->order = $order;
         $this->name = $name;
 
         if (!is_null($twitterAccount)) {
@@ -35,6 +40,14 @@ class UserAccount
     }
 
     /**
+     * @return int
+     */
+    public function order(): int
+    {
+        return $this->order;
+    }
+
+    /**
      * @return string
      */
     public function name(): string
@@ -43,6 +56,14 @@ class UserAccount
             return $this->twitterAccount;
         }
         return $this->name ?? "";
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasName(): bool
+    {
+        return $this->name() !== "";
     }
 
     /**

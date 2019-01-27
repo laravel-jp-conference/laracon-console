@@ -33,9 +33,10 @@ class ImportUserAccountsToTsv
         foreach ($file as $key => $row)
         {
             if ($key === 0) continue;
+            $order = (int) $row[0];
             $name = $row[11] ?? null;
             $twitter = $row[10] ?? null;
-            $collection->add(new UserAccount($name, $twitter));
+            $collection->add(new UserAccount($order, $name, $twitter));
         }
         return $collection;
     }
